@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Beer Miser</h1>
+<h2>Best Beer Values</h2>
+{% for bar in bars %}
+<h3><a href="{% url 'bar_detail' pk=bar.pk %}">{{ bar.name }}</a></h3>
+<h4>{% if bar.best_beer %}<a href="{% url 'beer_detail' pk=bar.best_beer.pk %}">{{ bar.best_beer }}</a>{% else %}No beers associated with this bar!{% endif %}</h4>
+{% endfor %}
+{% endblock %}

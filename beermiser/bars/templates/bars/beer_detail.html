@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block script %}
+{% endblock %}
+
+{% block style %}
+{% endblock %}
+
+{% block content %}
+<h1>{{ object.name }} @ <a href="{% url 'bar_detail' pk=object.bar.pk %}">{{ object.bar.name }}</a></h1>
+<ul>
+    <li>Serving size (fluid ounces): {{ object.fluid_ounces }}</li>
+    <li>ABV %: {{ object.alcohol_by_volume }}</li>
+    <li>Price (USD): ${{ object.price_usd }}</li>
+    <li>Last Updated: {{ object.updated }}</li>
+</ul>
+{% endblock %}
