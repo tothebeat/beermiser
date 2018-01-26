@@ -25,7 +25,7 @@ SECRET_KEY = '0s1(5tuy^%r7#1b125d5^dhnpe(j5bvi5)4gqxcqaizxxta-uh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'beermiser.happyforyoursuccess.com']
 
 
 # Application definition
