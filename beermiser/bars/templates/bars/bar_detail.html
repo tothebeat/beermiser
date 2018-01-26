@@ -7,42 +7,45 @@
 {% endblock %}
 
 {% block content %}
-<h1>Bar: {{ object.name }}</h1>
-Address: {{ object.street_address }}, {{ object.city }}, {{ object.state }}
-<h2>Best Beer Value</h2>
-<table class="table table-hover table-condensed">
-    <thead>
-        <th>Name</th>
-        <th>Bar</th>
-        <th>Serving Size (fl oz)</th>
-        <th>ABV %</th>
-        <th>Alcohol (fl oz)</th>
-        <th>Price (USD)</th>
-        <th>Alcohol/$</th>
-    </thead>
-    <tfoot>
-        <th>Name</th>
-        <th>Bar</th>
-        <th>Serving Size (fl oz)</th>
-        <th>ABV %</th>
-        <th>Alcohol (fl oz)</th>
-        <th>Price (USD)</th>
-        <th>Alcohol/$</th>
-    </tfoot>
-    <tbody>
-        <td><a href="{% url 'beer_detail' pk=object.best_beer.pk %}">{{ object.best_beer.name }}</a></td>
-        <td><a href="{% url 'bar_detail' pk=object.best_beer.bar.pk %}">{{ object.best_beer.bar.name }}</a></td>
-        <td>{{ object.best_beer.fluid_ounces }}</td>
-        <td>{{ object.best_beer.alcohol_by_volume }}</td>
-        <td>{{ object.best_beer.alcohol_fluid_ounces }}</td>
-        <td>${{ object.best_beer.price_usd }}</td>
-        <td>{{ object.best_beer.alcohol_per_dollar }}</td>
-    </tbody>
-</table>
-
-<h2>All Beers</h2>
-    {% for beer in object.beer_set.all %}
-    <li><a href="{% url 'beer_detail' pk=beer.pk %}">{{ beer }}</a></li>
-    {% endfor %}
-</ul>
+<div class="maincontent">
+    <h1>Bar: {{ object.name }}</h1>
+    Address: {{ object.street_address }}, {{ object.city }}, {{ object.state }}
+    <h2>Beers (Best value in green)</h2>
+    <div class="table-responsive">
+        <table class="table table-hover table-condensed">
+            <thead>
+                <th>Name</th>
+                <th>Alcohol/$</th>
+                <th>Serving Size (fl oz)</th>
+                <th>ABV</th>
+                <th>Alcohol (fl oz)</th>
+                <th>Price (USD)</th>
+            </thead>
+            <tfoot>
+                <th>Name</th>
+                <th>Alcohol/$</th>
+                <th>Serving Size (fl oz)</th>
+                <th>ABV</th>
+                <th>Alcohol (fl oz)</th>
+                <th>Price (USD)</th>
+            </tfoot>
+            <tbody>
+                {% for beer in object.beer_set.all %}
+                {% if beer.pk == object.best_beer.pk %}
+                <tr class="success">
+                {% else %}
+                <tr>
+                {% endif %}
+                    <td><a href="{% url 'beer_detail' pk=beer.pk %}">{{ beer.name }}</a></td>
+                    <td>{{ beer.alcohol_per_dollar|floatformat:3 }}</td>
+                    <td>{{ beer.fluid_ounces|floatformat:-1 }}</td>
+                    <td>{{ beer.alcohol_by_volume|floatformat:1 }}%</td>
+                    <td>{{ beer.alcohol_fluid_ounces|floatformat:3 }}</td>
+                    <td>${{ beer.price_usd|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
