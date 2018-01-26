@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0s1(5tuy^%r7#1b125d5^dhnpe(j5bvi5)4gqxcqaizxxta-uh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'beermiser.happyforyoursuccess.com']
 
 
 # Application definition
@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'beermiser.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'smalleat_beermiser',
+        'USER': 'smalleat_beermiser',
+        'PASSWORD': 'dogs!cats!mice',
+        'HOST': '127.0.0.1',
+        'PORT': '5432'
     }
 }
 
@@ -121,3 +125,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 if DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+else:
+  STATIC_ROOT = '/home/smalleat/webapps/beermiser_static/'
